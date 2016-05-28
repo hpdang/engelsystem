@@ -1,4 +1,4 @@
-    <?php
+<?php
 
 /**
  * Available T-Shirt sizes
@@ -56,7 +56,6 @@ function User_edit_vouchers_view($user) {
 function Users_view($users, $order_by, $arrived_count, $active_count, $force_active_count, $freeloads_count, $tshirts_count, $voucher_count) {
   foreach ($users as &$user) {
     $user['Nick'] = User_Nick_render($user);
-    $user['email'] = $user['email'];
     $user['Gekommen'] = glyph_bool($user['Gekommen']);
     $user['got_voucher'] = $user['got_voucher'];
     $user['Aktiv'] = glyph_bool($user['Aktiv']);
@@ -87,8 +86,6 @@ function Users_view($users, $order_by, $arrived_count, $active_count, $force_act
           'Nick' => Users_table_header_link('Nick', _('Nick'), $order_by),
           'Vorname' => Users_table_header_link('Vorname', _('Prename'), $order_by),
           'Name' => Users_table_header_link('Name', _('Name'), $order_by),
-          'email' => Users_table_header_link('email', _('Email'), $order_by),
-          'Handy' => Users_table_header_link('Handy', _('Mobile'), $order_by),          
           'DECT' => Users_table_header_link('DECT', _('DECT'), $order_by),
           'Gekommen' => Users_table_header_link('Gekommen', _('Arrived'), $order_by),
           'got_voucher' => Users_table_header_link('got_voucher', _('Voucher'), $order_by),
