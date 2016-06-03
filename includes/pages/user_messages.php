@@ -17,17 +17,26 @@ function user_unread_messages() {
 
 function user_messages() {
   global $user;
-  
   if (! isset($_REQUEST['action'])) {
+   
     $users = sql_select("SELECT * FROM `User` WHERE NOT `UID`='" . sql_escape($user['UID']) . "' ORDER BY `Nick`");
-    
+    $groups = sql_select("SELECT * FROM `Groups` ORDER BY `Name`");
+    $types = sql_select("SELECT * FROM `AngelTypes` ORDER BY `name`");
     $to_select_data = array(
         "" => _("Select recipient...") 
     );
     
     foreach ($users as $u)
+    {
       $to_select_data[$u['UID']] = $u['Nick'];
-    
+    }
+    foreach ($groups as $gr) {
+      $to_select_data[$gr['UID']] = $gr['Name'];
+    }
+    foreach ($types as $type ) {
+      $to_select_data[$type['id']]=$type['name'];
+    }
+    $to_select_data[0]="All Users";
     $to_select = html_select_key('to', 'to', $to_select_data, '');
     
     $messages = sql_select("SELECT * FROM `Messages` WHERE `SUID`='" . sql_escape($user['UID']) . "' OR `RUID`='" . sql_escape($user['UID']) . "' ORDER BY `isRead`,`Datum` DESC");
